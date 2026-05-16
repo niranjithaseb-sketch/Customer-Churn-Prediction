@@ -9,10 +9,9 @@ import pandas as pd
 
 df = pd.read_csv("churndataset.csv")
 
-# remove customerID because unique
 df = df.drop("customerID", axis=1)
 
-# convert TotalCharges to num
+
 df["TotalCharges"] = pd.to_numeric(
     df["TotalCharges"],
     errors="coerce"
@@ -21,22 +20,22 @@ df["TotalCharges"] = pd.to_numeric(
 # remove missing val
 df = df.dropna()
 
-# convert Churn column
+
 df["Churn"] = df["Churn"].map({
     "Yes": 1,
     "No": 0
 })
 
-# convert text columns
+
 df = pd.get_dummies(df, drop_first=True)
 
 print(df.head())
 print(df.shape)
-# features and target
+
 X = df.drop("Churn", axis=1)
 y = df["Churn"]
 
-# split data
+
 X_train, X_test, y_train, y_test = train_test_split(
     X,
     y,
@@ -44,16 +43,11 @@ X_train, X_test, y_train, y_test = train_test_split(
     random_state=42
 )
 
-# create model
-model = RandomForestClassifier()
 
-# train model
+model = RandomForestClassifier()
 model.fit(X_train, y_train)
 
-# predictions
 predictions = model.predict(X_test)
-
-# accuracy
 accuracy = accuracy_score(y_test, predictions)
 
 print("Accuracy:", accuracy)
