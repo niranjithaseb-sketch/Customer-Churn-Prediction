@@ -2,7 +2,6 @@ import streamlit as st
 import pandas as pd
 import joblib
 
-# page settings
 st.set_page_config(
     page_title="Customer Churn Prediction",
     page_icon="📊",
@@ -54,10 +53,9 @@ tech_tickets = st.number_input(
 # prediction button
 if st.button("Predict Churn"):
 
-    # create dataframe
     input_data = pd.DataFrame(columns=columns)
 
-    # fill all columns with 0
+    
     input_data.loc[0] = 0
 
     # important features
@@ -66,10 +64,9 @@ if st.button("Predict Churn"):
     input_data["TotalCharges"] = total_charges
     input_data["numTechTickets"] = tech_tickets
 
-    # prediction
+    
     prediction = model.predict(input_data)
 
-    # probability
     probability = model.predict_proba(input_data)[0][1]
 
     # result
