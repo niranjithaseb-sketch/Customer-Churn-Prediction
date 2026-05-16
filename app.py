@@ -8,17 +8,16 @@ st.set_page_config(
     layout="centered"
 )
 
-# load model and columns
 model = joblib.load("churn_model.pkl")
 columns = joblib.load("model_columns.pkl")
 
-# sidebar
+
 st.sidebar.title("About")
 st.sidebar.info(
     "This Machine Learning app predicts whether a customer is likely to churn."
 )
 
-# title
+
 st.title("📊 Customer Churn Prediction")
 
 st.write(
@@ -50,7 +49,7 @@ tech_tickets = st.number_input(
     value=0
 )
 
-# prediction button
+
 if st.button("Predict Churn"):
 
     input_data = pd.DataFrame(columns=columns)
@@ -69,7 +68,6 @@ if st.button("Predict Churn"):
 
     probability = model.predict_proba(input_data)[0][1]
 
-    # result
     st.subheader("Prediction Result")
 
     if prediction[0] == 1:
